@@ -1,0 +1,175 @@
+h3 {
+  text-align: center;
+}
+
+#izquierda,
+#derecha {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  padding: 0 20px;
+}
+
+#botones {
+  display: flex;
+  flex-direction: row !important;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+
+
+#formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+#formulario div {
+  display: flex;
+  flex-direction: column;
+  max-width: 327px;
+}
+
+input,
+select {
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+#btn_cambiar {
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.5em;
+}
+
+#btn_cancelar, #btn_borrar {
+  font-weight: bold;
+  background-color: #9C0707;
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+#btn_borrar {
+  color: white;
+}
+
+#derecha select {
+  margin-bottom: 5px;
+  max-width: 90px;
+}
+
+#jornadas_previas,
+#bton-admin {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+#jornadas_previas {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#jornadas_previas>table {
+  padding: 0.5rem;
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+}
+
+#jornadas_previas table {
+  width: 33%;
+}
+
+#jornadas_previas>table:nth-child(even) {
+  background-color: #c7dcf6;
+}
+
+#jornadas_previas>table:nth-child(odd) {
+  background-color: #a1c6ef;
+}
+
+.entradas button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.3rem 0.6rem;
+  background-color: #00a5a5;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+.entradas button img {
+  height: 1rem;
+  width: auto;
+}
+
+
+#horas-extra {
+  font-style: italic;
+  color: #999;
+}
+
+#horas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+#modificar {
+  margin: 5px 0;
+}
+
+#bton-admin {
+  margin: 10px 0;
+}
+
+#bton-admin button {
+  background-color: #9C0707;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#derecha>button {
+  max-width: 20%;
+  margin: 5px auto;
+}
+
+#tabla-datos {
+  display: none;
+}
+
+#mensaje {
+  border-radius: 0.5em;
+  border: 1px solid black;
+  padding: 0.5rem;
+  width: 30%;
+  background-color: #c7dcf6;
+  position: absolute;
+  left: 60%;
+  margin-top: 10px;
+}
+
+.esconder {
+  display: none;
+}

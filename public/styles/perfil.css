@@ -1,0 +1,77 @@
+#formulario-modificar {
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#formulario {
+    border: 3px solid black;
+    border-radius: 1.25em;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input, select {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+div:not([id]) {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    width: 80px;
+    height: 20px;
+    font-weight: 700;
+    color: white;
+    background-color: #9C0707;
+    border: 1px solid black;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+
+#actualizar {
+    background-color: green;
+}
+
+p {
+    margin: 0;
+}
+
+#botones {
+    margin-top: 10px;
+}
+
+#mensaje {
+    border-radius: 0.5em;
+    border: 1px solid black;
+    padding: 0.5rem;
+    width: 20%;
+    background-color: #c7dcf6;
+    position: absolute;
+    left: 50%;
+    margin-top: 10px;
+  }
+  #btn-jornada-manual{
+    position: relative;
+  }
+  @media screen and (max-width: 550px) {
+    #mensaje {
+      left: 20%;
+      width: 70%;
+    }
+    .info:hover ~ .informacion {
+      position: relative;
+    }
+  }
+
+.esconder {
+    display: none;
+}

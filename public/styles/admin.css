@@ -1,0 +1,131 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+table {
+    max-width: 90%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+tr:nth-child(even), tr:nth-child(even) button  {
+    background-color: #A1C6EF;
+}
+
+td {
+    width: 0.5%;
+    white-space: nowrap;
+    text-align: center;
+    padding: 5px 0;
+}
+
+h2,h1,#filtros {
+    text-align: center;
+}
+
+
+input {
+    width: 200px;
+    height: 25px;
+}
+
+.file-input {
+    width: 30rem;
+    border: none;
+    margin-left: 10rem;
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    gap: 5px;
+}
+
+hr:nth-child(2) {
+    width: 100%;
+}
+
+#div-crear {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#formulario, #formulario form  {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+}
+
+button {
+    width: 140px;
+    height: 20px;
+    font-weight: 700;
+    color: white;
+    background-color: #00a5a5;
+    border: 1px solid black;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+#div-crear button {
+    height: 34px;
+}
+
+.btn-modificar {
+    border:none;
+    color: black;
+    font-weight: bold;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+input, datalist {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#botones {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#input-filtro {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.activo {
+    color: black !important;
+    background-color: #d6d6d6 !important;
+}
+
+@media screen and (max-width: 350px) {
+    #btn-crear {
+        margin-bottom: 5px;
+    }    
+}
+
+@media screen and (max-width: 450px) {
+.botones button {
+        width: 30%;
+        font-size: 9px;
+    }
+    #input-filtro {
+        flex-direction: column;
+
+    }
+}
+
+select {
+    max-width: 90%;
+}

@@ -1,0 +1,16 @@
+html,body{
+    font-family: "Montserrat", sans-serif;
+}
+table,th,tr,td{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.titulo{
+    display: flex;
+    align-items: center;
+    height: 2.25rem;
+}
+img{
+    height: 100%;
+    width: auto;
+}

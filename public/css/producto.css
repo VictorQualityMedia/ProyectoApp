@@ -1,0 +1,42 @@
+body > div {
+  padding: 10px;
+}
+
+#datos-producto,
+#historial-prestamos {
+  text-align: center;
+}
+
+.prestamo {
+  border-radius: 1.25em;
+  max-width: 50%;
+  margin: 0 auto 20px;
+  padding: 5px;
+  color: white;
+  font-weight: bold;
+  font-size: 0.8em;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+
+}
+
+.prestamo:nth-child(even) {
+  background-color: #3e6ebb;
+}
+
+.prestamo:nth-child(odd) {
+  background-color: #9c0707;
+}
+
+/* ANIMACIONES */
+
+.reveal {
+  position: relative;
+  transform: translateY(50px);
+  opacity: 0;
+  transition: 2s all ease;
+}
+.reveal.active {
+  transform: translateY(0);
+  opacity: 1;
+}
