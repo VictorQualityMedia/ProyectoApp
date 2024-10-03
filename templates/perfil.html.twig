@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+{% block title %}Perfil
+{% endblock %}
+{% block head %}
+	<script>
+		let ruta_modificar = "{{ path('actualizarPerfil') }}";
+let ruta_cargar_dept = "{{ path('cargar_dept') }}";
+let es_admin = "{{ is_granted('ROLE_SUPERADMIN') }}";{% if app.user.getDepartamento() is null %}let dept_inicial = "0";
+{% else %}
+let dept_inicial = "{{ app.user.getDepartamento().getCodigo() }}";{% endif %}
+	</script>
+	<script src="{{asset('js/perfil.js')}}" defer></script>
+	<link rel="stylesheet" href="{{asset('styles/perfil.css')}}">
+	<title>Perfil</title>
+{% endblock %}
+{% block contenido%}
+	<div id='formulario-modificar'>
+		<div id='formulario'>
+			<div>
+				<label for="correo">Correo:</label>
+
+				{% if is_granted('ROLE_SUPERADMIN') %}
+					<input type="text" id="correo" name="correo" value="{{app.user.getCorreo()}}">
+				{% else %}
+					{{app.user.getCorreo()}}
+				{% endif %}
+
+			</div>
+
+			<div>
+				<label for="nombre">Nombre:</label>
+				<p id='nombre'>{{app.user.getNombre()}}</p>
+			</div>
+
+			<div>
+				<label for="clave">Contraseña:</label>
+
+				<input id='clave' type="password" name="clave">
+			</div>
+
+
+			<div>
+				<label for="confirmar">Confirmar contraseña:</label>
+
+				<input id='confirmar' type="password" name="confirmar">
+			</div>
+
+
+			<div>
+				<label for="dni">DNI:</label>
+				<p id='dni'>{{app.user.getDNI()}}</p>
+			</div>
+
+
+			<div>
+				<label for="departamento">Departamento:</label>
+
+				{% if is_granted('ROLE_SUPERADMIN') %}
+					<select id='departamento'></select>
+				{% else %}
+					{% if app.user.getDepartamento() is not null %}
+					<p id='departamento'>{{app.user.getDepartamento().getNombre()}}</p>
+					{% else %}
+					<p id='departamento'>NO TIENE</p>
+
+					{% endif %}
+				{% endif %}
+			</div>
+			<div>
+				<div id='info-zona'>
+					<label for="#zona">Zona horaria</label>
+					<i class="fa-solid fa-circle-info" style="color: #9c0707;"></i> <div class='esconder' id='mensaje'><p>Las horas de tus jornadas se guardarán en función de la zona horaria indicada</p></div>
+				</div>
+				<input list="time-zone" id="zona" value="{{app.user.getZona()}}">
+				<datalist id="time-zone">
+					{% for item in lista %}
+						<option value="{{item}}"></option>
+					{% endfor %}
+				</datalist>
+			</div>
+
+			<div id='botones'>
+				<button id="actualizar">Actualizar</button>
+				<button id="cancelar">Cancelar</button>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}

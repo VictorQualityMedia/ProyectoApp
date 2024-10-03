@@ -1,0 +1,167 @@
+{% extends 'base.html.twig' %}
+{% block title %}Calendario
+{% endblock %}
+{% block head %}
+	<script src="{{ asset('js/calendar.js') }}" defer></script>
+	<link rel="stylesheet" href="{{asset('styles/calendario.css')}}">
+	<link rel="stylesheet" href="{{asset('styles/calendar.css')}}">
+	<script>
+		let ruta_filtrar_calendario = "{{ path('filtrarCalendario') }}";
+let fechas = '{{ fechas|json_encode()|raw }}';
+fechas = JSON.parse(fechas);
+var datos_fecha = []
+console.log(fechas);
+
+if (fechas.festivos) {
+fechas.festivos.forEach(element => {
+datos_fecha.push({
+id: 0,
+startDate: new Date(element[0], element[1] - 1, element[2]),
+endDate: new Date(element[0], element[1] - 1, element[2])
+})
+});
+}
+if (fechas.vacaciones) {
+fechas.vacaciones.forEach(element => {
+datos_fecha.push({
+id: 1,
+startDate: new Date(element[0], element[1] - 1, element[2]),
+endDate: new Date(element[0], element[1] - 1, element[2])
+})
+});
+}
+if (fechas.bajas) {
+fechas.bajas.forEach(element => {
+datos_fecha.push({
+id: 2,
+startDate: new Date(element[0], element[1] - 1, element[2]),
+endDate: new Date(element[0], element[1] - 1, element[2])
+})
+});
+}
+
+$(function () {
+var currentYear = new Date().getFullYear();
+
+let calendar = new Calendar('#calendar', {
+enableContextMenu: true,
+enableRangeSelection: true,
+dataSource: datos_fecha
+});
+});
+	</script>
+
+{% endblock %}
+{% block contenido %}
+	<div class="contenido">
+		<div class="colores">
+			<div>
+				<div class="color c1"></div>
+				<label for="">Festivo</label>
+			</div>
+			<div>
+				<div class="color c2"></div>
+				<label for="">Baja</label>
+			</div>
+			<div>
+				<div class="color c3"></div>
+				<label for="">Vacaciones</label>
+			</div>
+		</div>
+		{% if is_granted('ROLE_SUPERADMIN') %}
+			<div>
+				<label for='select_usuarios'>Usuario:</label>
+				<select id='select_usuarios'>
+					{% for usu in usuarios %}
+						{% if usu.id == app.user.getCodigo() %}
+						<option value='{{usu.id}}' selected>{{usu.nombre}}</option>
+						{% else %}
+						<option value='{{usu.id}}'>{{usu.nombre}}</option>
+						{%endif%}
+					{% endfor %}
+				</select>
+			</div>
+		{% endif %}
+		{% if is_granted('ROLE_ADMIN') %}
+			<div>
+				<label for='select_usuarios'>Usuario:</label>
+				<select id='select_usuarios'>
+					{% for usu in usuarios %}
+						{% if usu.id == app.user.getCodigo() %}
+						<option value='{{usu.id}}' selected>{{usu.nombre}}</option>
+						{% else %}
+						<option value='{{usu.id}}'>{{usu.nombre}}</option>
+						{%endif%}
+					{% endfor %}
+				</select>
+			</div>
+		{% endif %}
+		
+		<div id="calendar"></div>
+	</div>
+
+	<script>
+		$("#select_usuarios").change(() => {
+$.ajax({
+url: ruta_filtrar_calendario,
+method: "POST",
+dataType: "json",
+data: {
+"usuario": $("#select_usuarios").val()
+},
+success: function (data) {
+	console.log(data)
+	var datos_fecha = []
+let fechas = data;
+if (fechas.festivos) {
+fechas.festivos.forEach(element => {
+datos_fecha.push({
+id: 0,
+startDate: new Date(element[0], element[1] - 1, element[2]),
+endDate: new Date(element[0], element[1] - 1, element[2])
+})
+});
+}
+if (fechas.vacaciones) {
+fechas.vacaciones.forEach(element => {
+datos_fecha.push({
+id: 1,
+startDate: new Date(element[0], element[1] - 1, element[2]),
+endDate: new Date(element[0], element[1] - 1, element[2])
+})
+});
+}
+if (fechas.bajas) {
+fechas.bajas.forEach(element => {
+datos_fecha.push({
+id: 2,
+startDate: new Date(element[0], element[1] - 1, element[2]),
+endDate: new Date(element[0], element[1] - 1, element[2])
+})
+});
+}
+console.log(datos_fecha);
+
+let calendar = new Calendar('#calendar', {
+enableContextMenu: true,
+enableRangeSelection: true,
+dataSource: datos_fecha
+});
+},
+error: function (errorThrown) {
+console.log(errorThrown);
+}
+})
+})
+	</script>
+{% endblock %}
+{#   	days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+		daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+		daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+		months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+		monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+		weekShort: 'S',
+		weekStart: 1
+	      },
+	    }),
+	      i(s, "colors", ["#9C0707","#CF4628","#16D659"]), #}

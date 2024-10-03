@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administración
+{% endblock %}
+{% block head %}
+	<link rel="stylesheet" href="{{ asset('styles/admin.css') }}">
+	<script>
+		let ruta_borrar_usuario = "{{ path('borrar_usuario') }}";
+let ruta_modificar_usuario = "{{ path('modificar_usuario') }}";
+let ruta_crear_festivo = "{{ path('configurarFestivos') }}";
+let ruta_borrar_festivo = "{{ path('borrarFestivo') }}";
+let ruta_buscar_usuario = "{{ path('buscar_usu') }}";
+let ruta_crear_usuario = "{{ path('crear_usu') }}";
+let ruta_crear_departamento = "{{ path('crear_dept') }}";
+let ruta_borrar_dept = "{{ path('borrar_dept') }}";
+let es_superadmin = "{{ is_granted('ROLE_SUPERADMIN') }}";
+	</script>
+	<script src="{{asset('js/admin.js')}}" defer></script>
+	<title>Zona admin</title>
+{% endblock %}
+{% block contenido%}
+	<h1>Panel de administración</h1>
+	<main>
+		<div id="botones">
+			{% if is_granted('ROLE_SUPERADMIN') %}
+				<button id='btn-crear'>Crear</button>
+			{% endif %}
+			<button id='btn-gestionar'>Gestionar</button>
+		</div>
+	</main>
+	<datalist id="lista_dept"></datalist>
+
+{% endblock %}

@@ -1,0 +1,236 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modificar
+{% endblock %}
+{% block head %}
+	<link
+	rel="stylesheet" href="{{asset('styles/modificar.css')}}">
+	<!-- Variables iniciales -->
+	<script>
+		let datosIniciales = {
+codigo_usuario: {{ cod_usuario }},
+nombre_inicial: "{{ nombre }}",
+correo_inicial: "{{ correo }}",
+dni_inicial: "{{ dni }}",
+rol_inicial: {{ rol }},
+dept_inicial: "{{ departamento }}",
+horario_inicial: "{{ horario }}",
+contrato_inicial: "{{ contrato }}",
+personal: "{{ personal }}",
+inicio_contrato: "{{ inicio }}"
+}
+let tipo_Jornada = "{{ path('seleccionarTipo') }}"
+let departamento_usuario = "{{departamento_usuario.getCodigo()}}";
+let ruta_editar_jornada = "{{ path('editar_jornada') }}"
+let ruta_filtrar_jornada = "{{ path('filtrarJornadas') }}";
+let imagen_papelera = "{{ asset('img/bin.png') }}";
+let ruta_horas_recuperar = "{{ path('a_recuperar') }}";
+let ruta_boton_cambiar = "{{ path('cambiar_datos') }}";
+
+let ruta_borrar_usuario = "{{ path('borrar_usuario') }}";
+let ruta_cargar_dept = "{{ path('cargar_dept') }}";
+
+let rol_usu;{% if is_granted('ROLE_ADMIN') %}rol_usu = 'ROLE_ADMIN';
+{% elseif is_granted('ROLE_SUPERADMIN') %}rol_usu = 'ROLE_SUPERADMIN';
+{% else %}rol_usu = 'ROLE_USER';{% endif %}
+	</script>
+	<script src="{{asset('js/modificar.js')}}" defer></script>
+	<script src="{{ asset('js/jornada.js') }}" defer></script>
+	<title>Modificar / Jornadas</title>
+	<style>
+		@media print {
+			nav,
+			#izquierda,
+			#derecha button,
+			#buscar-datos,
+			#jornadas_previas {
+				display: none;
+			}
+
+			#tabla-datos {
+				display: block;
+				margin: 0 auto;
+				text-align: center;
+				width: 95%;
+				border-collapse: collapse;
+				font-size: 14px;
+			}
+
+			td {
+				padding: 5px 20px;
+			}
+
+			tr {
+				border: 1px solid black;
+			}
+
+		}
+	</style>
+{% endblock %}
+
+{% block contenido %}
+	<div id="contenido">
+		<div id="izquierda">
+			<h3>Modificar datos de "{{nombre}}"</h3>
+			<div id="formulario">
+				<div>
+					<label for="mod_usu">Nombre:</label>
+					<input id="mod_usu" type="text" value="{{nombre}}">
+				</div>
+				<div>
+					<label for="mod_correo">Correo:</label>
+					<input id="mod_correo" type="email" value="{{correo}}">
+				</div>
+				<div>
+					<label for="mod_pass">Contraseña:</label>
+					<input id="mod_pass" type="password">
+				</div>
+				<div>
+					<label for="mod_dni">Dni:</label>
+					<span>{{dni}}</span>
+				</div>
+
+				{% if is_granted('ROLE_SUPERADMIN') %}
+					<div>
+						<label for="mod_rol">Rol:</label>
+						<select id="mod_rol"></select>
+					</div>
+					<div>
+						<label for="mod_dept">Departamento:</label>
+						<select id="mod_dept" data-ruta=></select>
+					</div>
+				{% endif %}
+
+				{% if is_granted('ROLE_SUPERADMIN') %}
+					<div>
+						<label>Tipo de contrato:</label>
+						<select id='mod_contrato'>
+							<option value="0">Parcial</option>
+							<option value="1">Normal</option>
+							<option value="2">Personal</option>
+						</select>
+					</div>
+				{% endif %}
+
+				{% if is_granted('ROLE_SUPERADMIN') %}
+					<div>
+						<label>Tipo de horario:</label>
+						<select id='mod_horario'>
+							<option value="0">L-V</option>
+							<option value="1">X-D</option>
+							<option value="2">L-D (rotatorio)</option>
+						</select>
+					</div>
+				{% endif %}
+				
+                {% if is_granted('ROLE_SUPERADMIN') %}
+					<div>
+						<label for="fecha_contrato">Inicio contrato:</label>
+						<input type="date" id="fecha_contrato" value="{{ inicio|date('Y-m-d') }}">
+					</div>
+				{% endif %}
+                    
+				<div id="botones">
+					<button id="btn_cambiar">Cambiar Datos</button>
+					<button id="btn_cancelar">Cancelar</button>
+					{% if (is_granted('ROLE_SUPERADMIN') or (is_granted('ROLE_ADMIN') and rol == 0)) %}
+						<button id="btn_borrar">Borrar Usuario</button>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+
+		<div id="derecha">
+			<h3>Jornadas de "{{nombre}}"</h3>
+			<button id='btn-imprimir'>Imprimir</button>
+			<div id='buscar-datos'>
+				<div>
+					<div>
+						<label for='mes-inicio'>Mes Inicio:</label>
+						<select id='mes-inicio'>
+							<option value="01">Enero</option>
+							<option value="02">Febrero</option>
+							<option value="03">Marzo</option>
+							<option value="04">Abril</option>
+							<option value="05">Mayo</option>
+							<option value="06">Junio</option>
+							<option value="07">Julio</option>
+							<option value="08">Agosto</option>
+							<option value="09">Septiembre</option>
+							<option value="10">Octubre</option>
+							<option value="11">Noviembre</option>
+							<option value="12">Diciembre</option>
+						</select>
+
+						<label for='agno-inicio'>Año Inicio:</label>
+						<select id='agno-inicio'>
+							<option value="2019">2019</option>
+							<option value="2020">2020</option>
+							<option value="2021">2021</option>
+							<option value="2022">2022</option>
+							<option value="2023">2023</option>
+							<option value="2024" selected>2024</option>
+							<option value="2025">2025</option>
+							<option value="2026">2026</option>
+							<option value="2027">2027</option>
+							<option value="2028">2028</option>
+							<option value="2029">2029</option>
+							<option value="2030">2030</option>
+							<option value="2031">2031</option>
+							<option value="2032">2032</option>
+							<option value="2033">2033</option>
+							<option value="2034">2034</option>
+							<option value="2035">2035</option>
+							<option value="2036">2036</option>
+							<option value="2037">2037</option>
+							<option value="2038">2038</option>
+						</select>
+					</div>
+
+					<div>
+						<label for='mes-fin'>Mes Fin:</label>
+						<select id='mes-fin'>
+							<option value="01">Enero</option>
+							<option value="02">Febrero</option>
+							<option value="03">Marzo</option>
+							<option value="04">Abril</option>
+							<option value="05">Mayo</option>
+							<option value="06">Junio</option>
+							<option value="07">Julio</option>
+							<option value="08">Agosto</option>
+							<option value="09">Septiembre</option>
+							<option value="10">Octubre</option>
+							<option value="11">Noviembre</option>
+							<option value="12">Diciembre</option>
+						</select>
+
+						<label for='agno-fin'>Año Fin:</label>
+						<select id='agno-fin'>
+							<option value="2019">2019</option>
+							<option value="2020">2020</option>
+							<option value="2021">2021</option>
+							<option value="2022">2022</option>
+							<option value="2023">2023</option>
+							<option value="2024" selected>2024</option>
+							<option value="2025">2025</option>
+							<option value="2026">2026</option>
+							<option value="2027">2027</option>
+							<option value="2028">2028</option>
+							<option value="2029">2029</option>
+							<option value="2030">2030</option>
+							<option value="2031">2031</option>
+							<option value="2032">2032</option>
+							<option value="2033">2033</option>
+							<option value="2034">2034</option>
+							<option value="2035">2035</option>
+							<option value="2036">2036</option>
+							<option value="2037">2037</option>
+							<option value="2038">2038</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div name="filtro" id="datos-jornadas"></div>
+			<div id='tabla-datos'></div>
+		</div>
+	</div>
+{% endblock %}

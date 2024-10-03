@@ -1,0 +1,47 @@
+{# templates/base.html.twig #}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>
+			{% block title %}{% endblock %}
+		</title>
+		<link
+		rel="shortcut icon" href="{{ asset('logo-quality.png') }}" type="image/x-icon">
+		{# Fuentes #}
+		<link rel="preconnect" href="https://fonts.googleapis.com"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;1,300;1,400;1,600;1,800&display=swap" rel="stylesheet"/>
+		<script language="javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+		<script language="javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
+		<script>
+			let ruta_comprobar_actividad = "{{path('comprobar_actividad')}}";
+		</script>
+		<script src="{{asset('js/actividad.js')}}" defer></script>
+		<style>
+			html,
+			body {
+				width: 100vw;
+				font-family: "Montserrat", sans-serif;
+				padding: 0;
+				margin: 0;
+			}
+			.logo {
+				position: sticky;
+				width: 20px;
+				height: auto;
+			}
+		</style>
+		{% block head %}{% endblock %}
+	</head>
+	<body>
+		{% block body %}
+			{% block cabecera %}
+				{{ include("cabecera.html.twig") }}
+			{%endblock %}
+			{% block contenido%}{% endblock %}
+		{% endblock %}
+	</body>
+</html>

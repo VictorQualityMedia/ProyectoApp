@@ -1,0 +1,42 @@
+{% extends 'login.html.twig' %}
+{% block head %}
+	{# Variables #}
+	<title>Cambiar Clave</title>
+	<script>
+		$(document).ready(function () {
+function validacion() {
+
+var clave = document.getElementById("clave").value.trim();
+var confirmar = document.getElementById("confirmar").value.trim();
+
+if (clave != "" && confirmar != "") {
+if (clave == confirmar) {
+return true;
+} else {
+alert("Las contraseñas no coinciden");
+return false;
+}
+} else {
+alert("Los campos no estan completos");
+return false;
+}
+}
+})
+	</script>
+{% endblock %}
+{% block body %}
+	<form action="{{ path('recuperarClave') }}" onsubmit=" return validacion()" method="post">
+		<img src="{{asset('logo-quality.png')}}" alt="Logo Quality Media Producciones"/>
+		<div class="datos">
+			<label for="clave">Nueva contraseña</label>
+			<input type="password" name="clave" id="clave">
+
+		</div>
+		<div class="datos">
+			<label for="clave">Confirmar contraseña</label>
+			<input type="password" id="confirmar">
+		</div>
+		<button type="submit">Confirmar</button>
+	</form>
+	<img class="logo" src="{{asset('logo-quality.png')}}" alt="">
+{% endblock %}

@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="{{asset('styles/cabecera.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<nav class="topnav" id="topNav">
+	<span>
+		<img id="logo" src="{{ asset('logo-quality.png') }}" alt="Logo Quality Media Producciones"/>
+	</span>
+	{% if app.user %}
+		<a id="link-jornadas" href="{{path('ctrl_login')}}">JORNADAS</a>
+	{% endif %}
+	<a id="link-calendario" href="{{path('calendario')}}">CALENDARIO</a>
+	{% if app.user and not is_granted('ROLE_USER') %}
+		<a id="link-administracion" href="{{path('ctrl_admin')}}">ADMINISTRACIÓN</a>
+	{% endif %}
+	{% if app.user %}
+		<a id="link-perfil" href="{{path('ctrl_perfil')}}">PERFIL</a>
+		<a href="{{path('ctrl_logout')}}">LOG OUT</a>
+	{% endif %}
+		<a href="javascript:void(0);" class="icon" onclick="responsive()">
+			<i class="fa fa-bars"></i>
+		</a>
+</nav>
+<script>
+	function responsive() {
+var x = document.getElementById("topNav");
+if (x.className === "topnav") {
+x.className += " responsive";
+} else {
+document.getElementsByClassName('icon')[0].classList.remove('active');
+x.className = "topnav";
+}
+}
+</script>

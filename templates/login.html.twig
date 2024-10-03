@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="shortcut icon" href="{{ asset('logo-quality.png') }}" type="image/x-icon"/>
+		<link rel="preconnect" href="https://fonts.googleapis.com"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;1,300;1,400;1,600;1,800&display=swap" rel="stylesheet"/>
+		<script language="javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+		<style></style>
+		<link rel="stylesheet" href="{{asset('styles/login.css')}}">
+		{% block head %}
+		<title>Login</title>
+		<script>
+			let correo = "{{ path('enviarCorreo') }}";
+			let login = "{{ path('ctrl_login') }}";
+		</script>
+		<script src="js/login.js" defer></script>
+		{% endblock %}
+	</head>
+	<body>
+	{% block body %}
+		<form action="{{ path('ctrl_login') }}" method="post" id="formulario">
+			<img src="{{asset('logo-quality.png')}}" alt="Logo Quality Media Producciones"/>
+			{% if mensaje %}
+				<b>{{mensaje.0}}</b>
+			{% endif %}
+			<div class="datos">
+				<label for="">Correo:</label>
+				<input type="email" name="_username"/>
+			</div>
+			<div class="datos">
+				<label for="">Contraseña:</label>
+				<input type="password" name="_password"/>
+			</div>
+			<a id="enlace">¿Olvidaste tu contraseña?</a>
+			<button type="submit">Sign in</button>
+		</form>
+		<img class="logo" src="{{asset('logo-quality.png')}}" alt="">
+	{% endblock %}
+	</body>
+</html>
