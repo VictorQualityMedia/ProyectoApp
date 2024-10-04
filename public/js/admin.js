@@ -4,7 +4,7 @@ let color = getCookie("color");
 // Si la cookie de color existe, aplicamos el color a los botones
 function cambiar_color () {
   if (color) {
-    let buttons = document.querySelectorAll("button");
+    let buttons = document.querySelectorAll('input[type="submit"], button');
     buttons.forEach(function(button) {
         button.style.backgroundColor = color;
     });
@@ -93,6 +93,7 @@ $("#btn-crear").click(() => {
     $("#fecha_contrato").val(moment().format('YYYY-MM-DD'));
     cargarDatos();
     cargarRoles();
+    cambiar_color();
 
     $("#tipo_contrato").change(function (e) {
       e.preventDefault();
@@ -168,6 +169,7 @@ $("#btn-crear").click(() => {
       "<h2>Nuevo Departamento</h2><input id='nom_dept' type='text' placeholder='Nombre...'><button id='form_dept'>Guardar</button><h2>Borrar Departamento</h2><select id='dept_a_borrar'></select><button id='btn_borrar_dept'>Borrar</button>"
     );
     $("#formulario").append(formulario);
+    cambiar_color();
     $("#dept_a_borrar").append($("<option>Indique el departamento</option>"));
     cargarDatos();
 
@@ -251,6 +253,7 @@ $("#btn-crear").click(() => {
             `<p id='respuesta' style='color: red; font-weight: bold; font-size: 28px'>Indique el nombre del departamento!</p>`
           )
         );
+        cambiar_color();
         function esconder() {
           $("#respuesta").remove();
         }
@@ -268,6 +271,7 @@ $("#btn-crear").click(() => {
       "<h2>Nuevo Festivo</h2><input type='date' id='fecha-festivo'><button id='btn-anadir'>Seleccionar</button>Lista de fechas:<ul id='lista-fechas'></ul><button id='crear-festivos'>Guardar</button><h2>Borrar Festivo</h2><input type='date' id='fecha_borrar'><button id='btn-borrar-festivo'>Borrar</button>"
     );
     $("#formulario").append(datos);
+    cambiar_color();
 
     $("#btn-anadir").click(() => {
       if (
@@ -387,7 +391,7 @@ $("#btn-crear").click(() => {
     // Insertar el formulario en el div correspondiente
     // $("#formulario").append(formulario);
     $("#formulario").append(formulario2);
-    console.log("Probando.");
+    cambiar_color();
 
     // Manejar el envío del formulario
     $("#form_color").click(() => {
