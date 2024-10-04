@@ -1,19 +1,3 @@
-// Leer la cookie de color
-let color = getCookie("color");
-
-// Si la cookie de color existe, aplicamos el color a los botones
-function cambiar_color () {
-  if (color) {
-    let buttons = document.querySelectorAll('input[type="submit"], button');
-    buttons.forEach(function(button) {
-        button.style.backgroundColor = color;
-    });
-  }
-}
-
-cambiar_color();
-
-
 $("#link-administracion").addClass("active");
 if (window.innerHeight > window.innerWidth) {
   $("#link-administracion").detach().insertBefore("a:first");
@@ -365,16 +349,16 @@ $("#btn-crear").click(() => {
     $("#formulario").empty();
 
     // Añadir el contenido del formulario de configuración
-    // let formulario = $(
-    //   `<h2>Configuración logo</h2>
-    //   <label for="logo" class="custom-file-label">Cambia tu logo seleccionando un archivo:</label>
+    let formulario = $(
+      `<h2>Configuración logo</h2>
+      <label for="logo" class="custom-file-label">Cambia tu logo seleccionando un archivo:</label>
         
-    //     <!-- Solo el input de archivo -->
-    //     <input id="logo" name="logo" type="file" required class="file-input">
+        <!-- Solo el input de archivo -->
+        <input id="logo" name="logo" type="file" required class="file-input">
 
-    //     <!-- Botón para subir -->
-    //     <button type="submit" class="submit-btn" id="form_logo">Guardar cambios</button>`
-    // );
+        <!-- Botón para subir -->
+        <button type="submit" class="submit-btn" id="form_logo">Guardar cambios</button>`
+    );
 
     // Añadir el contenido del formulario de configuración
     let formulario2 = $(
@@ -389,11 +373,68 @@ $("#btn-crear").click(() => {
     );
 
     // Insertar el formulario en el div correspondiente
-    // $("#formulario").append(formulario);
+    $("#formulario").append(formulario);
     $("#formulario").append(formulario2);
-    cambiar_color();
+    recibir_color();
 
     // Manejar el envío del formulario
+$("#form_logo").click(function (e) {
+  e.preventDefault(); // Prevenir la acción por defecto del formulario
+
+  // Recoger el archivo del input de tipo file
+  var logoInput = document.getElementById("logo");
+
+    // Verificar si el input y los archivos existen antes de acceder a ellos
+    if (logoInput) {
+        console.log("Archivo encontrado.");
+    } else {
+        console.error("No se ha seleccionado ningún archivo o el input no existe.");
+        alert("Por favor, selecciona un archivo.");
+    }
+
+    // Crear un objeto FormData para enviar el archivo
+    let formData = new FormData();
+    formData.append("logo", logoInput); // Añadir el archivo al FormData
+    console.log(formData);
+
+    // Realizar el envío de los datos mediante AJAX
+    $.ajax({
+        url: ruta_logo, // Ruta de configuración en el servidor
+        method: "POST",
+        data: {
+          logo: formData
+        },
+        processData: false, // Evitar que jQuery procese los datos (necesario para FormData)
+        contentType: false, // Evitar que jQuery establezca el tipo de contenido (necesario para FormData)
+        dataType: "json",
+        async: true,
+        success: function (data) {
+            // Mostrar mensajes de éxito o error
+            if (data.error) {
+                $("#formulario").append(
+                    `<p id='respuesta' style='color: red; font-weight: bold; font-size: 28px'>${data.error}</p>`
+                );
+            } else {
+                $("#formulario").append(
+                    `<p id='respuesta' style='color: green; font-weight: bold; font-size: 28px'>${data.exito}</p>`
+                );
+            }
+
+            function esconder() {
+                $("#respuesta").remove();
+            }
+            setTimeout(esconder, 2000);
+        },
+        error: function (errorThrown) {
+            console.log(errorThrown);
+        },
+    });
+
+    // Recargar la página al completar la petición
+    window.location.reload();
+  });
+
+    // -- Manejar el envío del formulario de los colores --
     $("#form_color").click(() => {
       console.log("Probando.");
 
