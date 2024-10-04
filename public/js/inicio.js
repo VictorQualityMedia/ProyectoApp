@@ -1,3 +1,19 @@
+// Leer la cookie de color
+let color_botones = getCookie("color");
+
+// Si la cookie de color existe, aplicamos el color a los botones
+function cambiar_color () {
+  if (color_botones) {
+    let buttons = document.querySelectorAll("button");
+    buttons.forEach(function(button) {
+        button.style.backgroundColor = color_botones;
+    });
+  }
+}
+
+cambiar_color();
+
+// Inicio del resto de código
 let tipoJornada = null;
 let laborable = true;
 let tipoJornadaManual = "Normal";
@@ -56,6 +72,8 @@ const comprobarJornada = () => {
         </div>`)
         );
 
+        cambiar_color();
+
         if (interval != null) {
           $("#tiempo").html("");
           $("#btn-iniciar").html("Finalizar");
@@ -75,7 +93,7 @@ const comprobarJornada = () => {
               $("#jornada-manual").css("display", "none");
               if (interval == null) {
                 interval = setInterval(displayTimer, 1000);
-                $("#btn-iniciar").css({ "background-color": "#9c0707" });
+                cambiar_color(); // Si quieres cambiar el color del botón al pulsarlo, hazlo aquí
                 $("#btn-iniciar").text("Finalizar");
               }
             } else {
@@ -85,7 +103,7 @@ const comprobarJornada = () => {
               clearInterval(interval);
               interval = null;
               peticionFinalizar();
-              $("#btn-iniciar").css({ "background-color": "#9c0707" });
+              
               $("#btn-iniciar").text("Iniciar");
               // observaciones
               let observaciones = $(
@@ -93,6 +111,7 @@ const comprobarJornada = () => {
               );
               $("#contador").append(observaciones);
               cargarObservacion();
+              cambiar_color(); // Si quieres cambiar el color, aquí
 
               $("#observaciones").before(
                 $(
@@ -195,6 +214,7 @@ const comprobarJornada = () => {
       console.log(errorThrown);
     },
   });
+  
 };
 
 $("#fecha-inicio").val(moment().format("YYYY-MM-DD HH:mm"));
@@ -240,6 +260,7 @@ $("#btn-manual").click(function () {
     
 </div>`)
   );
+  cambiar_color(); // Si quieres cambiar el color, aquí
 
   $("#btn-jornada-manual button").click((e) => {
     $("#datetimes, #crear-jornada").remove();
@@ -606,3 +627,15 @@ const peticionFinalizar = () => {
     },
   });
 };
+
+// Función para obtener el valor de una cookie
+function getCookie(name) {
+  let cookieArr = document.cookie.split(";");
+  for(let i = 0; i < cookieArr.length; i++) {
+      let cookiePair = cookieArr[i].split("=");
+      if(name == cookiePair[0].trim()) {
+          return decodeURIComponent(cookiePair[1]);
+      }
+  }
+  return null;
+}

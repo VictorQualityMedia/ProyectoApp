@@ -1,3 +1,18 @@
+// Leer la cookie de color
+let color = getCookie("color");
+
+// Si la cookie de color existe, aplicamos el color a los botones
+function cambiar_color () {
+  if (color) {
+    let buttons = document.querySelectorAll("button");
+    buttons.forEach(function(button) {
+        button.style.backgroundColor = color;
+    });
+  }
+}
+
+cambiar_color();
+
 function filtrarJornadas() {
   $("#jornadas_previas").remove();
   $("#bton-admin").remove();
@@ -219,6 +234,7 @@ function visualizarJornadas(data) {
           $(`<div id="bton-admin"><button id='modificar'>Modificar</button><div>`)
         );
         
+        
     }
   } else {
     if (rol_usu == "ROLE_SUPERADMIN" || (rol_usu == "ROLE_ADMIN") || (rol_usu == "ROLE_USER")) {
@@ -230,6 +246,8 @@ function visualizarJornadas(data) {
       
     }
   }
+
+  cambiar_color();
   
   
   

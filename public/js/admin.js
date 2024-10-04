@@ -1,3 +1,19 @@
+// Leer la cookie de color
+let color = getCookie("color");
+
+// Si la cookie de color existe, aplicamos el color a los botones
+function cambiar_color () {
+  if (color) {
+    let buttons = document.querySelectorAll("button");
+    buttons.forEach(function(button) {
+        button.style.backgroundColor = color;
+    });
+  }
+}
+
+cambiar_color();
+
+
 $("#link-administracion").addClass("active");
 if (window.innerHeight > window.innerWidth) {
   $("#link-administracion").detach().insertBefore("a:first");
@@ -63,6 +79,8 @@ $("#btn-crear").click(() => {
     <div id="formulario"></div>
 </div>`)
   );
+  // La cambiamos también aquí porque son elementos "nuevos".
+  cambiar_color();
 
   $("#btn_crear_usu").click(() => {
     $("#div-crear button").removeClass("activo");
@@ -343,51 +361,49 @@ $("#btn-crear").click(() => {
     $("#formulario").empty();
 
     // Añadir el contenido del formulario de configuración
-    let formulario = $(
-      `<h2>Configuración logo</h2>
-      <form id="form_logo" method="POST" action="{{path(cambiar_logo)}}" enctype="multipart/form-data">
-        <label for="logo" class="custom-file-label">Cambia tu logo seleccionando un archivo:</label>
+    // let formulario = $(
+    //   `<h2>Configuración logo</h2>
+    //   <label for="logo" class="custom-file-label">Cambia tu logo seleccionando un archivo:</label>
         
-        <!-- Solo el input de archivo -->
-        <input id="logo" name="logo" type="file" required class="file-input">
+    //     <!-- Solo el input de archivo -->
+    //     <input id="logo" name="logo" type="file" required class="file-input">
 
-        <!-- Botón para subir -->
-        <button type="submit" class="submit-btn">Guardar cambios</button>
-      </form>`
-    );
+    //     <!-- Botón para subir -->
+    //     <button type="submit" class="submit-btn" id="form_logo">Guardar cambios</button>`
+    // );
 
     // Añadir el contenido del formulario de configuración
     let formulario2 = $(
       `<h2>Configuración colores</h2>
-      <form id="form_color" method="POST" action="{{path(cambiar_colores)}}">
-        <label for="logo" class="custom-file-label">Cambia el color de loos botones:</label>
+        <label for="color">Cambia el color de loos botones:</label>
         
         <!-- Solo el input de archivo -->
         <input id="color" name="color" type="color" required>
 
         <!-- Botón para subir -->
-        <button type="submit" class="submit-btn">Guardar cambios</button>
-      </form>`
+        <button type="submit" class="submit-btn" id="form_color">Guardar cambios</button>`
     );
 
     // Insertar el formulario en el div correspondiente
-    $("#formulario").append(formulario);
+    // $("#formulario").append(formulario);
     $("#formulario").append(formulario2);
+    console.log("Probando.");
 
     // Manejar el envío del formulario
-    $("#form_logo").submit((e) => {
-      e.preventDefault(); // Prevenir el envío normal del formulario
+    $("#form_color").click(() => {
+      console.log("Probando.");
 
       // Recoger los valores de los inputs
-      let imagen = $("#logo").val();
+      let color_input = $("#color").val();
+      console.log(color_input);
 
       // Realizar el envío de los datos mediante AJAX (ejemplo de envío)
       $.ajax({
-        url: cambiar_logo, // Ruta de configuración en el servidor
+        url: ruta_color, // Ruta de configuración en el servidor
         method: "POST",
         dataType: "json",
         data: {
-          nuevo_logo: imagen
+          color: color_input
         },
         async: true,
         success: function (data) {
@@ -402,18 +418,23 @@ $("#btn-crear").click(() => {
           else {
             $("#formulario").append(
               $(
-                `<p id='respuesta' style='color: green; font-weight: bold; font-size: 28px'>Configuración guardada exitosamente!</p>`
+                `<p id='respuesta' style='color: green; font-weight: bold; font-size: 28px'>${data.exito}</p>`
               )
             );
+            cargarDatos();
           }
 
-          // Remover el mensaje tras 2 segundos
-          setTimeout(() => $("#respuesta").remove(), 2000);
+          function esconder() {
+            $("#respuesta").remove();
+          }
+          setTimeout(esconder, 2000);
         },
+        // Entra aqui, trata de ver por qué
         error: function (errorThrown) {
           console.log(errorThrown);
         },
       });
+      window.location.reload();
     });
   });
 });
@@ -544,3 +565,17 @@ function comprobarDni(dni) {
   }
   return false;
 }
+
+
+// Función para obtener el valor de una cookie
+function getCookie(name) {
+    let cookieArr = document.cookie.split(";");
+    for(let i = 0; i < cookieArr.length; i++) {
+        let cookiePair = cookieArr[i].split("=");
+        if(name == cookiePair[0].trim()) {
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    return null;
+}
+
