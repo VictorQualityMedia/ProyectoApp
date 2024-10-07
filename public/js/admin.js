@@ -351,13 +351,10 @@ $("#btn-crear").click(() => {
     // Añadir el contenido del formulario de configuración
     let formulario = $(
       `<h2>Configuración logo</h2>
-      <label for="logo" class="custom-file-label">Cambia tu logo seleccionando un archivo:</label>
-        
-        <!-- Solo el input de archivo -->
-        <input id="logo" name="logo" type="file" required class="file-input">
-
-        <!-- Botón para subir -->
-        <button type="submit" class="submit-btn guardar" id="form_logo">Guardar cambios</button>`
+      <form id="uploadLogoForm" enctype="multipart/form-data">
+        <input type="file" id="logoFile" name="logo" accept="image/*">
+        <button type="submit" id="form_logo" class="guardar">Subir Logo</button>
+      </form>`
     );
 
     // Añadir el contenido del formulario de configuración
@@ -378,61 +375,29 @@ $("#btn-crear").click(() => {
     recibir_color();
 
     // Manejar el envío del formulario
-$("#form_logo").click(function (e) {
-  e.preventDefault(); // Prevenir la acción por defecto del formulario
+    $("#form_logo").click(function (e) {
+      document.getElementById('uploadLogoForm').addEventListener('submit', function(e) {
+        e.preventDefault();
 
-  // Recoger el archivo del input de tipo file
-  var logoInput = document.getElementById("logo");
+        let formData = new FormData();
+        let fileField = document.querySelector('input[type="file"]');
 
-    // Verificar si el input y los archivos existen antes de acceder a ellos
-    if (logoInput) {
-        console.log("Archivo encontrado.");
-    } else {
-        console.error("No se ha seleccionado ningún archivo o el input no existe.");
-        alert("Por favor, selecciona un archivo.");
-    }
+        formData.append('logo', fileField.files[0]);
 
-    // Crear un objeto FormData para enviar el archivo
-    let formData = new FormData();
-    formData.append("logo", logoInput); // Añadir el archivo al FormData
-    console.log(formData);
-
-    // Realizar el envío de los datos mediante AJAX
-    $.ajax({
-        url: ruta_logo, // Ruta de configuración en el servidor
-        method: "POST",
-        data: {
-          logo: formData
-        },
-        processData: false, // Evitar que jQuery procese los datos (necesario para FormData)
-        contentType: false, // Evitar que jQuery establezca el tipo de contenido (necesario para FormData)
-        dataType: "json",
-        async: true,
-        success: function (data) {
-            // Mostrar mensajes de éxito o error
-            if (data.error) {
-                $("#formulario").append(
-                    `<p id='respuesta' style='color: red; font-weight: bold; font-size: 28px'>${data.error}</p>`
-                );
-            } else {
-                $("#formulario").append(
-                    `<p id='respuesta' style='color: green; font-weight: bold; font-size: 28px'>${data.exito}</p>`
-                );
-            }
-
-            function esconder() {
-                $("#respuesta").remove();
-            }
-            setTimeout(esconder, 2000);
-        },
-        error: function (errorThrown) {
-            console.log(errorThrown);
-        },
+        fetch('cambiar_logo', {  // La ruta donde Symfony recibe el archivo
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Success:', result);
+            window.location.reload();
+        })
+        .catch(error => {
+            alert('Error:', error);
+        });
+      });
     });
-
-    // Recargar la página al completar la petición
-    window.location.reload();
-  });
 
     // -- Manejar el envío del formulario de los colores --
     $("#form_color").click(() => {
@@ -610,17 +575,3 @@ function comprobarDni(dni) {
   }
   return false;
 }
-
-
-// Función para obtener el valor de una cookie
-function getCookie(name) {
-    let cookieArr = document.cookie.split(";");
-    for(let i = 0; i < cookieArr.length; i++) {
-        let cookiePair = cookieArr[i].split("=");
-        if(name == cookiePair[0].trim()) {
-            return decodeURIComponent(cookiePair[1]);
-        }
-    }
-    return null;
-}
-

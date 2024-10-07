@@ -2790,3 +2790,26 @@
     }
   }
 );
+
+// Función para obtener el valor de una cookie
+function getCookie(name) {
+  let cookieArr = document.cookie.split(";");
+  for(let i = 0; i < cookieArr.length; i++) {
+      let cookiePair = cookieArr[i].split("=");
+      if(name == cookiePair[0].trim()) {
+          return decodeURIComponent(cookiePair[1]);
+      }
+  }
+  return null;
+}
+
+// Leer la cookie de color
+let color = getCookie("color");
+
+// Si la cookie de color existe, aplicamos el color a los botones
+if (color) {
+  let buttons = document.querySelectorAll("button");
+  buttons.forEach(function(button) {
+      button.style.backgroundColor = color;
+  });
+}

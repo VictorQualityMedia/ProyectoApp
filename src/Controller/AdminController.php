@@ -31,44 +31,32 @@ class AdminController extends AbstractController
      */
     public function cambiar_logo(Request $request)
     {
-        // Asegúrate de que la petición sea AJAX y que el usuario tenga los permisos necesarios.
-        if ($request->isXmlHttpRequest() && $this->isGranted('ROLE_SUPERADMIN')) {
-            $logo = $request->files->get('logo'); // Obtén el archivo subido
+        // Verifica si el archivo fue enviado correctamente
+        if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+            $logoFile = $_FILES['logo'];
 
-            // Verifica si se subió un archivo
-            if ($logo) {
-                // Verifica que el archivo sea una imagen válida (opcional)
-                if (!in_array($logo->getMimeType(), ['image/png', 'image/jpeg', 'image/gif'])) {
-                    return new JsonResponse(['error' => 'Formato de imagen no permitido.']);
-                }
+            // Directorio de destino en la carpeta public
+            $uploadDir = $this->getParameter('kernel.project_dir') . '/public/uploads/logos/';
+            $fileName = 'logo.png';  // Nombre fijo para el archivo
 
-                // Define el directorio de destino
-                $publicDir = $this->getParameter('kernel.project_dir') . '/public';
-                var_dump($publicDir);
-
-                // Renombrar el logo antiguo si existe
-                $oldLogoPath = $publicDir . '/logo.png';
-                if (file_exists($oldLogoPath)) {
-                    rename($oldLogoPath, $publicDir . '/' . uniqid() . '.png');
-                }
-
-                // Guardar el nuevo logo como "logo.png"
-                $newFilename = 'logo.png';
-                try {
-                    // Mueve el archivo subido al directorio público
-                    $logo->move($publicDir, $newFilename);
-                    return new JsonResponse(['exito' => 'Logo subido correctamente!']);
-                } catch (\Exception $e) {
-                    return new JsonResponse(['error' => 'Error al subir el archivo.']);
-                }
-            } 
-            else {
-                return new JsonResponse(['error' => 'No se ha recibido ningún archivo.']);
+            // Verifica si la carpeta de destino existe, si no, créala
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
             }
 
-        } else {
-            return new Response("No tienes autorización.");
+            // Borra todos los archivos existentes en el directorio
+            array_map('unlink', glob($uploadDir . "*"));
+
+            // Mueve el archivo subido al directorio con el nombre "logo.png"
+            if (move_uploaded_file($logoFile['tmp_name'], $uploadDir . $fileName)) {
+                // Responder con éxito
+                return new JsonResponse(['message' => 'Archivo subido exitosamente', 'filename' => $fileName]);
+            } else {
+                return new JsonResponse(['error' => 'Error moviendo el archivo'], 500);
+            }
         }
+
+        return new JsonResponse(['error' => 'No se recibió el archivo correctamente'], 400);
     }
 
     /**

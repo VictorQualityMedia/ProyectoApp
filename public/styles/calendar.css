@@ -298,10 +298,7 @@
 .table-striped .calendar table.month tr th {
   background-color: transparent;
 }
-table.month td.day .day-content:hover {
-  /*background: rgba(0, 0, 0, 0.2);
-  cursor: pointer;*/
-}
+
 @-webkit-keyframes sk-bouncedelay {
   0%,
   100%,
