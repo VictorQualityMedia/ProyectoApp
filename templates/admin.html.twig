@@ -5,17 +5,20 @@
 	<link rel="stylesheet" href="{{ asset('styles/admin.css') }}">
 	<script>
 		let ruta_borrar_usuario = "{{ path('borrar_usuario') }}";
-let ruta_modificar_usuario = "{{ path('modificar_usuario') }}";
-let ruta_crear_festivo = "{{ path('configurarFestivos') }}";
-let ruta_borrar_festivo = "{{ path('borrarFestivo') }}";
-let ruta_buscar_usuario = "{{ path('buscar_usu') }}";
-let ruta_crear_usuario = "{{ path('crear_usu') }}";
-let ruta_crear_departamento = "{{ path('crear_dept') }}";
-let ruta_borrar_dept = "{{ path('borrar_dept') }}";
-let ruta_color = "{{ path('cambiar_color') }}";
-let es_superadmin = "{{ is_granted('ROLE_SUPERADMIN') }}";
+		let ruta_modificar_usuario = "{{ path('modificar_usuario') }}";
+		let ruta_crear_festivo = "{{ path('configurarFestivos') }}";
+		let ruta_borrar_festivo = "{{ path('borrarFestivo') }}";
+		let ruta_buscar_usuario = "{{ path('buscar_usu') }}";
+		let ruta_crear_usuario = "{{ path('crear_usu') }}";
+		let ruta_crear_departamento = "{{ path('crear_dept') }}";
+		let ruta_borrar_dept = "{{ path('borrar_dept') }}";
+		let ruta_logo = "{{ path('cambiar_logo') }}";
+		let ruta_color = "{{ path('cambiar_color') }}";
+		let ruta_devolver_color = "{{ path('devolver_color') }}";
+		let es_superadmin = "{{ is_granted('ROLE_SUPERADMIN') }}";
 	</script>
 	<script src="{{asset('js/admin.js')}}" defer></script>
+	<script src="{{asset('js/cambio_color.js')}}" defer></script>
 	<title>Zona admin</title>
 {% endblock %}
 {% block contenido%}
@@ -23,9 +26,9 @@ let es_superadmin = "{{ is_granted('ROLE_SUPERADMIN') }}";
 	<main>
 		<div id="botones">
 			{% if is_granted('ROLE_SUPERADMIN') %}
-				<button id='btn-crear'>Crear</button>
+				<button id='btn-crear' class="especial">Crear</button>
 			{% endif %}
-			<button id='btn-gestionar'>Gestionar</button>
+			<button id='btn-gestionar' class="especial">Gestionar</button>
 		</div>
 	</main>
 	<datalist id="lista_dept"></datalist>

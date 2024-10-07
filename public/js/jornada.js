@@ -1,16 +1,3 @@
-// Leer la cookie de color
-let color = getCookie("color");
-
-// Si la cookie de color existe, aplicamos el color a los botones
-function cambiar_color () {
-  if (color) {
-    let buttons = document.querySelectorAll("button");
-    buttons.forEach(function(button) {
-        button.style.backgroundColor = color;
-    });
-  }
-}
-
 cambiar_color();
 
 function filtrarJornadas() {
@@ -231,7 +218,7 @@ function visualizarJornadas(data) {
       $("#buscar-datos")
         .first()
         .append(
-          $(`<div id="bton-admin"><button id='modificar'>Modificar</button><div>`)
+          $(`<div id="bton-admin"><button id='modificar' class='especial'>Modificar</button><div>`)
         );
         
         
@@ -241,7 +228,7 @@ function visualizarJornadas(data) {
       $("#buscar-datos")
       .first()
       .append(
-        $(`<div id="bton-admin"><button id='modificar'>Modificar</button><div>`)
+        $(`<div id="bton-admin"><button id='modificar' class='especial'>Modificar</button><div>`)
       );
       
     }

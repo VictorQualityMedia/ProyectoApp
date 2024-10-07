@@ -7,7 +7,8 @@
 	{% if app.user %}
 		<a id="link-jornadas" href="{{path('ctrl_login')}}">JORNADAS</a>
 	{% endif %}
-	<a id="link-calendario" href="{{path('calendario')}}">CALENDARIO</a>
+	{# Arreglado el bug que hacía que se omitiera la clase active en calendario #}
+	<a id="link-calendario" href="{{path('calendario')}}" class="{% if app.request.get('_route') == 'calendario' %}active{% endif %}">CALENDARIO</a>
 	{% if app.user and not is_granted('ROLE_USER') %}
 		<a id="link-administracion" href="{{path('ctrl_admin')}}">ADMINISTRACIÓN</a>
 	{% endif %}

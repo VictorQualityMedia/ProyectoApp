@@ -5,6 +5,18 @@
 	<script src="{{ asset('js/calendar.js') }}" defer></script>
 	<link rel="stylesheet" href="{{asset('styles/calendario.css')}}">
 	<link rel="stylesheet" href="{{asset('styles/calendar.css')}}">
+	<link rel="stylesheet" href="{{asset('styles/cabecera.css')}}">
+	<script>
+		let ruta_devolver_color = "{{ path('devolver_color') }}";
+
+		let rol_usu;
+		{% if is_granted('ROLE_ADMIN') %}
+			rol_usu = 'ROLE_ADMIN';
+		{% elseif is_granted('ROLE_SUPERADMIN') %}
+			rol_usu = 'ROLE_SUPERADMIN';
+		{% else %}rol_usu = 'ROLE_USER';{% endif %}
+	</script>
+	<script src="{{asset('js/cambio_color.js')}}" defer></script>
 	<script>
 		let ruta_filtrar_calendario = "{{ path('filtrarCalendario') }}";
 let fechas = '{{ fechas|json_encode()|raw }}';
@@ -154,6 +166,7 @@ console.log(errorThrown);
 })
 })
 	</script>
+	<script src="{{asset('js/cambio_color.js')}}" defer></script>
 {% endblock %}
 {#   	days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
 		daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],

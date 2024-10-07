@@ -1,175 +1,106 @@
-h3 {
-  text-align: center;
+#formulario-modificar {
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#izquierda,
-#derecha {
+#formulario {
+  border: 3px solid black;
+  border-radius: 1.25em;
+  padding: 35px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  text-align: center;
-  padding: 0 20px;
+  gap: 15px;
+}
+
+input, select {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+div:not([id]) {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  width: 80px;
+  height: 20px;
+  font-weight: 700;
+  color: white;
+  background-color: #9C0707;
+  border: 1px solid black;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+
+#actualizar {
+  background-color: green;
+}
+
+p {
+  margin: 0;
 }
 
 #botones {
-  display: flex;
-  flex-direction: row !important;
-  justify-content: space-between;
-  align-items: center;
-  gap: 5px;
-}
-
-
-
-#formulario {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-}
-
-#formulario div {
-  display: flex;
-  flex-direction: column;
-  max-width: 327px;
-}
-
-input,
-select {
-  border-radius: 5px;
-  border: 1px solid black;
-}
-
-#btn_cambiar {
-  background-color: green;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 0.5em;
-}
-
-#btn_cancelar, #btn_borrar {
-  font-weight: bold;
-  background-color: #9C0707;
-  border: none;
-  border-radius: 0.5em;
-  cursor: pointer;
-}
-
-#btn_borrar {
-  color: white;
-}
-
-#derecha select {
-  margin-bottom: 5px;
-  max-width: 90px;
-}
-
-#jornadas_previas,
-#bton-admin {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-#jornadas_previas {
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-#jornadas_previas>table {
-  padding: 0.5rem;
-  border-radius: 1rem;
-  -webkit-border-radius: 1rem;
-  -moz-border-radius: 1rem;
-  -ms-border-radius: 1rem;
-  -o-border-radius: 1rem;
-}
-
-#jornadas_previas table {
-  width: 33%;
-}
-
-#jornadas_previas>table:nth-child(even) {
-  background-color: #c7dcf6;
-}
-
-#jornadas_previas>table:nth-child(odd) {
-  background-color: #a1c6ef;
-}
-
-.entradas button {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.3rem 0.6rem;
-  background-color: #00a5a5;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  color: white;
-  font-weight: bold;
-}
-
-.entradas button img {
-  height: 1rem;
-  width: auto;
-}
-
-
-#horas-extra {
-  font-style: italic;
-  color: #999;
-}
-
-#horas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-#modificar {
-  margin: 5px 0;
-}
-
-#bton-admin {
-  margin: 10px 0;
-}
-
-#bton-admin button {
-  background-color: #9C0707;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#derecha>button {
-  max-width: 20%;
-  margin: 5px auto;
-}
-
-#tabla-datos {
-  display: none;
+  margin-top: 10px;
 }
 
 #mensaje {
   border-radius: 0.5em;
   border: 1px solid black;
   padding: 0.5rem;
-  width: 30%;
+  width: 20%;
   background-color: #c7dcf6;
   position: absolute;
-  left: 60%;
+  left: 50%;
   margin-top: 10px;
+}
+#btn-jornada-manual{
+  position: relative;
+}
+@media screen and (max-width: 550px) {
+  #mensaje {
+    left: 20%;
+    width: 70%;
+  }
+  .info:hover ~ .informacion {
+    position: relative;
+  }
 }
 
 .esconder {
   display: none;
+}
+
+/* Implementaciones de botones dinámicos */
+.guardar {
+border: 1px solid black;
+border-radius: 0%;
+background: linear-gradient(90deg, rgba(0,138,2,1) 0%, rgba(13,111,31,1) 50%, rgba(39,79,47,1) 100%);
+background-size: 200% 100%; /* Duplicar el tamaño del fondo para animarlo */
+background-position: 0% 0%; /* Posición inicial del fondo */
+transition: background-position 1s ease, border-radius 1s ease; /* Transición suave */
+}
+
+.guardar:hover {
+border-radius: 1%;
+background-position: 100% 0%; /* Mover el gradiente */
+}
+
+.borrar {
+border: 1px solid black;
+border-radius: 0%;
+background: linear-gradient(90deg, rgba(255,4,4,1) 0%, rgba(203,40,40,1) 50%, rgba(111,49,49,1) 100%);
+background-size: 200% 100%; /* Duplicar el tamaño del fondo para animarlo */
+background-position: 0% 0%; /* Posición inicial del fondo */
+transition: background-position 1s ease, border-radius 1s ease; /* Transición suave */
+}
+
+.borrar:hover {
+border-radius: 1%;
+background-position: 100% 0%; /* Mover el gradiente */
 }

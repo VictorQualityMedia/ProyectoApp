@@ -1,18 +1,3 @@
-// Leer la cookie de color
-let color_botones = getCookie("color");
-
-// Si la cookie de color existe, aplicamos el color a los botones
-function cambiar_color () {
-  if (color_botones) {
-    let buttons = document.querySelectorAll("button");
-    buttons.forEach(function(button) {
-        button.style.backgroundColor = color_botones;
-    });
-  }
-}
-
-cambiar_color();
-
 // Inicio del resto de código
 let tipoJornada = null;
 let laborable = true;
@@ -68,11 +53,11 @@ const comprobarJornada = () => {
         $("#tipo-jornada").after(
           $(`<div id="contador">
             <p id="tiempo"></p>
-            <button id="btn-iniciar">Iniciar</button>
+            <button id="btn-iniciar" class="especial">Iniciar</button>
         </div>`)
         );
 
-        cambiar_color();
+        recibir_color();
 
         if (interval != null) {
           $("#tiempo").html("");
@@ -251,10 +236,10 @@ $("#btn-manual").click(function () {
     $(`<div id="jornada-manual">
     <h3>Registra una jornada manualmente:</h3>
     <div id='btn-jornada-manual'>
-    <button>Normal</button>
-    <button>Recuperar</button>
-    <button>Vacaciones</button>
-    <button>Baja</button>
+    <button class='especial'>Normal</button>
+    <button class='especial'>Recuperar</button>
+    <button class='especial'>Vacaciones</button>
+    <button class='especial'>Baja</button>
     <i class="info fa-solid fa-circle-info" style="color: #9c0707;"></i><div class="informacion"><div>Normal: iniciar una jornada anterior</div><div>Recuperar: recuperar tus horas</div><div>Vacaciones, Baja</div>
     </div>
     
@@ -277,7 +262,7 @@ $("#btn-manual").click(function () {
             <textarea id="observaciones-manual" cols="40" rows="5"></textarea>
         </div>
     </div>
-    <button id="crear-jornada">Guardar Jornada</button>`)
+    <button id="crear-jornada" class="guardar">Guardar Jornada</button>`)
     );
     cargarObservacionManual();
     $("#fechas input").on("change", () => {

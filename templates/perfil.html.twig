@@ -3,6 +3,27 @@
 {% endblock %}
 {% block head %}
 	<script>
+		let ruta_comprobar_jornada = "{{ path('comprobarJornada') }}";
+		let ruta_cargar_observacion = "{{ path('cargarObservacion') }}";
+		let ruta_crear_jornada_manual = "{{ path('crear_jornada_manual') }}";
+		let ruta_guardar_observacion = "{{ path('guardarObservacion') }}";
+		let tipo_Jornada = "{{ path('seleccionarTipo') }}";
+		let ruta_editar_jornada = "{{ path('editar_jornada') }}";
+		let ruta_filtrar_jornada = "{{path('filtrarJornadas')}}";
+		let ruta_inicio_control = "{{path('inicioControl')}}";
+		let ruta_horas_recuperar = "{{path('a_recuperar')}}";
+		let imagen_papelera = "{{asset('img/bin.png')}}";
+		let ruta_devolver_color = "{{ path('devolver_color') }}";
+
+		let rol_usu;
+		{% if is_granted('ROLE_ADMIN') %}
+			rol_usu = 'ROLE_ADMIN';
+		{% elseif is_granted('ROLE_SUPERADMIN') %}
+			rol_usu = 'ROLE_SUPERADMIN';
+		{% else %}rol_usu = 'ROLE_USER';{% endif %}
+	</script>
+	<script src="{{asset('js/cambio_color.js')}}" defer></script>
+	<script>
 		let ruta_modificar = "{{ path('actualizarPerfil') }}";
 let ruta_cargar_dept = "{{ path('cargar_dept') }}";
 let es_admin = "{{ is_granted('ROLE_SUPERADMIN') }}";{% if app.user.getDepartamento() is null %}let dept_inicial = "0";
@@ -80,8 +101,8 @@ let dept_inicial = "{{ app.user.getDepartamento().getCodigo() }}";{% endif %}
 			</div>
 
 			<div id='botones'>
-				<button id="actualizar">Actualizar</button>
-				<button id="cancelar">Cancelar</button>
+				<button id="actualizar" class="guardar">Actualizar</button>
+				<button id="cancelar" class="borrar">Cancelar</button>
 			</div>
 		</div>
 

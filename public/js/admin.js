@@ -55,10 +55,10 @@ $("#btn-crear").click(() => {
   $("main").append(
     $(`<div id="div-crear">
     <div class="botones">
-        <button id="btn_crear_usu">USUARIOS</button>
-        <button id="btn_crear_dept">DEPART.</button>
-        <button id="btn_crear_festivo">FESTIVOS</button>
-        <button id="btn_configuracion">CONFIGURACION</button>
+        <button id="btn_crear_usu" class="especial">USUARIOS</button>
+        <button id="btn_crear_dept" class="especial">DEPART.</button>
+        <button id="btn_crear_festivo" class="especial">FESTIVOS</button>
+        <button id="btn_configuracion" class="especial">CONFIGURACION</button>
     </div>
     <div id="formulario"></div>
 </div>`)
@@ -71,7 +71,7 @@ $("#btn-crear").click(() => {
     $("#btn_crear_usu").addClass("activo");
     $("#formulario").empty();
     let formulario = $(
-      "<h2>Nuevo Usuario</h2><form method='POST' action='#'  id='form_usu'><input id='usu_nom' type='text' placeholder='Nombre...' required><input id='usu_mail' type='email' placeholder='Correo...' ><input type='password' id='clave_usu' placeholder='Password...' required><input id='usu_dni' type='text' placeholder='DNI...'><input list='lista_dept' id='usu_dept' type='text' placeholder='Departamento...' required><label for='mod_rol'>Rol:</label><select id='mod_rol'></select><label for='tipo_contrato'>Tipo contrato:</label><select id='tipo_contrato'><option value='0'>Contrato parcial</option><option value='1' selected>Contrato normal</option><option value='2'>Personal</option></select><label for='fecha_contrato'>Inicio contrato:</label><input type='date' id='fecha_contrato'><label for='tipo_horario'>Horario:</label><select id='tipo_horario'><option value='0'>L-V</option><option value='1'>X-D</option><option value='2'>L-D (rotatorio)</option></select><input type='submit' value='Guardar'></form>"
+      "<h2>Nuevo Usuario</h2><form method='POST' action='#'  id='form_usu'><input id='usu_nom' type='text' placeholder='Nombre...' required><input id='usu_mail' type='email' placeholder='Correo...' ><input type='password' id='clave_usu' placeholder='Password...' required><input id='usu_dni' type='text' placeholder='DNI...'><input list='lista_dept' id='usu_dept' type='text' placeholder='Departamento...' required><label for='mod_rol'>Rol:</label><select id='mod_rol'></select><label for='tipo_contrato'>Tipo contrato:</label><select id='tipo_contrato'><option value='0'>Contrato parcial</option><option value='1' selected>Contrato normal</option><option value='2'>Personal</option></select><label for='fecha_contrato'>Inicio contrato:</label><input type='date' id='fecha_contrato'><label for='tipo_horario'>Horario:</label><select id='tipo_horario'><option value='0'>L-V</option><option value='1'>X-D</option><option value='2'>L-D (rotatorio)</option></select><input class = 'guardar' type='submit' value='Guardar'></form>"
     );
     $("#formulario").append(formulario);
     $("#fecha_contrato").val(moment().format('YYYY-MM-DD'));
@@ -150,7 +150,7 @@ $("#btn-crear").click(() => {
     $("#btn_crear_dept").addClass("activo");
     $("#formulario").empty();
     let formulario = $(
-      "<h2>Nuevo Departamento</h2><input id='nom_dept' type='text' placeholder='Nombre...'><button id='form_dept'>Guardar</button><h2>Borrar Departamento</h2><select id='dept_a_borrar'></select><button id='btn_borrar_dept'>Borrar</button>"
+      "<h2>Nuevo Departamento</h2><input id='nom_dept' type='text' placeholder='Nombre...'><button id='form_dept' class='guardar'>Guardar</button><h2>Borrar Departamento</h2><select id='dept_a_borrar'></select><button id='btn_borrar_dept' class='borrar'>Borrar</button>"
     );
     $("#formulario").append(formulario);
     cambiar_color();
@@ -252,7 +252,7 @@ $("#btn-crear").click(() => {
     let fechas = [];
     $("#formulario").empty();
     let datos = $(
-      "<h2>Nuevo Festivo</h2><input type='date' id='fecha-festivo'><button id='btn-anadir'>Seleccionar</button>Lista de fechas:<ul id='lista-fechas'></ul><button id='crear-festivos'>Guardar</button><h2>Borrar Festivo</h2><input type='date' id='fecha_borrar'><button id='btn-borrar-festivo'>Borrar</button>"
+      "<h2>Nuevo Festivo</h2><input type='date' id='fecha-festivo'><button id='btn-anadir' class='especial'>Seleccionar</button>Lista de fechas:<ul id='lista-fechas'></ul><button id='crear-festivos' class='guardar'>Guardar</button><h2>Borrar Festivo</h2><input type='date' id='fecha_borrar'><button id='btn-borrar-festivo' class='borrar'>Borrar</button>"
     );
     $("#formulario").append(datos);
     cambiar_color();
@@ -267,7 +267,7 @@ $("#btn-crear").click(() => {
         fechas.forEach((fecha) => {
           $("#lista-fechas").append(
             $(
-              `<li>${fecha}<button class="borrar-fecha" data-id="${fecha}" style='height: 25px; width: 60px; margin-left: 5px;'>borrar</button></li>`
+              `<li>${fecha}<button class="borrar-fecha borrar" data-id="${fecha}" style='height: 25px; width: 60px; margin-left: 5px;'>borrar</button></li>`
             )
           );
         });
@@ -357,7 +357,7 @@ $("#btn-crear").click(() => {
         <input id="logo" name="logo" type="file" required class="file-input">
 
         <!-- Botón para subir -->
-        <button type="submit" class="submit-btn" id="form_logo">Guardar cambios</button>`
+        <button type="submit" class="submit-btn guardar" id="form_logo">Guardar cambios</button>`
     );
 
     // Añadir el contenido del formulario de configuración
@@ -369,7 +369,7 @@ $("#btn-crear").click(() => {
         <input id="color" name="color" type="color" required>
 
         <!-- Botón para subir -->
-        <button type="submit" class="submit-btn" id="form_color">Guardar cambios</button>`
+        <button type="submit" class="submit-btn guardar" id="form_color">Guardar cambios</button>`
     );
 
     // Insertar el formulario en el div correspondiente

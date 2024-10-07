@@ -1,24 +1,29 @@
 {% extends 'base.html.twig' %}
 			{% block title %}Home{% endblock %}
 {% block head %}
-	<link
-	rel="stylesheet" href="{{ asset('styles/inicio.css') }}">
+	<link rel="stylesheet" href="{{ asset('styles/inicio.css') }}">
+	<script src="{{asset('js/cambio_color.js')}}" defer></script>
+	
 	{# Variables #}
 	<script>
 		let ruta_comprobar_jornada = "{{ path('comprobarJornada') }}";
-let ruta_cargar_observacion = "{{ path('cargarObservacion') }}";
-let ruta_crear_jornada_manual = "{{ path('crear_jornada_manual') }}";
-let ruta_guardar_observacion = "{{ path('guardarObservacion') }}";
-let tipo_Jornada = "{{ path('seleccionarTipo') }}";
-let ruta_editar_jornada = "{{ path('editar_jornada') }}";
-let ruta_filtrar_jornada = "{{path('filtrarJornadas')}}";
-let ruta_inicio_control = "{{path('inicioControl')}}";
-let ruta_horas_recuperar = "{{path('a_recuperar')}}";
-let imagen_papelera = "{{asset('img/bin.png')}}";
+		let ruta_cargar_observacion = "{{ path('cargarObservacion') }}";
+		let ruta_crear_jornada_manual = "{{ path('crear_jornada_manual') }}";
+		let ruta_guardar_observacion = "{{ path('guardarObservacion') }}";
+		let tipo_Jornada = "{{ path('seleccionarTipo') }}";
+		let ruta_editar_jornada = "{{ path('editar_jornada') }}";
+		let ruta_filtrar_jornada = "{{path('filtrarJornadas')}}";
+		let ruta_inicio_control = "{{path('inicioControl')}}";
+		let ruta_horas_recuperar = "{{path('a_recuperar')}}";
+		let imagen_papelera = "{{asset('img/bin.png')}}";
+		let ruta_devolver_color = "{{ path('devolver_color') }}";
 
-let rol_usu;{% if is_granted('ROLE_ADMIN') %}rol_usu = 'ROLE_ADMIN';
-{% elseif is_granted('ROLE_SUPERADMIN') %}rol_usu = 'ROLE_SUPERADMIN';
-{% else %}rol_usu = 'ROLE_USER';{% endif %}
+		let rol_usu;
+		{% if is_granted('ROLE_ADMIN') %}
+			rol_usu = 'ROLE_ADMIN';
+		{% elseif is_granted('ROLE_SUPERADMIN') %}
+			rol_usu = 'ROLE_SUPERADMIN';
+		{% else %}rol_usu = 'ROLE_USER';{% endif %}
 	</script>
 	<script src="{{asset('js/inicio.js')}}" defer></script>
 
@@ -31,9 +36,9 @@ let rol_usu;{% if is_granted('ROLE_ADMIN') %}rol_usu = 'ROLE_ADMIN';
 		<div id="tipo-jornada">
 			<h3>Indica Jornada</h3>
 			<div id="btn-tipo-jornada">
-				<button id="btn-normal">Laborable</button>
-				<button id="btn-manual">Manual</button>
-				<button id="btn-tus-jornadas">Tus Jornadas</button>
+				<button id="btn-normal" class="especial">Laborable</button>
+				<button id="btn-manual" class="especial">Manual</button>
+				<button id="btn-tus-jornadas" class="especial">Tus Jornadas</button>
 			</div>
 
 		</div>

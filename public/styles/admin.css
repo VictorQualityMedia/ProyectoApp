@@ -66,11 +66,12 @@ button {
     height: 20px;
     font-weight: 700;
     color: white;
-    background-color: #00a5a5;
     border: 1px solid black;
     border-radius: 0.5em;
     cursor: pointer;
 }
+
+
 
 #div-crear button {
     height: 34px;
@@ -128,4 +129,33 @@ input, datalist {
 
 select {
     max-width: 90%;
+}
+
+/* Implementaciones de botones dinámicos */
+.guardar {
+    border: 1px solid black;
+    border-radius: 0%;
+    background: linear-gradient(90deg, rgba(0,138,2,1) 0%, rgba(13,111,31,1) 50%, rgba(39,79,47,1) 100%);
+    background-size: 200% 100%; /* Duplicar el tamaño del fondo para animarlo */
+    background-position: 0% 0%; /* Posición inicial del fondo */
+    transition: background-position 1s ease, border-radius 1s ease; /* Transición suave */
+}
+
+.guardar:hover {
+    border-radius: 1%;
+    background-position: 100% 0%; /* Mover el gradiente */
+}
+
+.borrar {
+    border: 1px solid black;
+    border-radius: 0%;
+    background: linear-gradient(90deg, rgba(255,4,4,1) 0%, rgba(203,40,40,1) 50%, rgba(111,49,49,1) 100%);
+    background-size: 200% 100%; /* Duplicar el tamaño del fondo para animarlo */
+    background-position: 0% 0%; /* Posición inicial del fondo */
+    transition: background-position 1s ease, border-radius 1s ease; /* Transición suave */
+}
+
+.borrar:hover {
+    border-radius: 1%;
+    background-position: 100% 0%; /* Mover el gradiente */
 }

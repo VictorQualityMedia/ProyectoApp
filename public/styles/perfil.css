@@ -1,77 +1,106 @@
 #formulario-modificar {
-    height: 90vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #formulario {
-    border: 3px solid black;
-    border-radius: 1.25em;
-    padding: 35px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  border: 3px solid black;
+  border-radius: 1.25em;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 input, select {
-    border: 1px solid black;
-    border-radius: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 
 div:not([id]) {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 button {
-    width: 80px;
-    height: 20px;
-    font-weight: 700;
-    color: white;
-    background-color: #9C0707;
-    border: 1px solid black;
-    border-radius: 0.5em;
-    cursor: pointer;
+  width: 80px;
+  height: 20px;
+  font-weight: 700;
+  color: white;
+  background-color: #9C0707;
+  border: 1px solid black;
+  border-radius: 0.5em;
+  cursor: pointer;
 }
 
 
 #actualizar {
-    background-color: green;
+  background-color: green;
 }
 
 p {
-    margin: 0;
+  margin: 0;
 }
 
 #botones {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 #mensaje {
-    border-radius: 0.5em;
-    border: 1px solid black;
-    padding: 0.5rem;
-    width: 20%;
-    background-color: #c7dcf6;
-    position: absolute;
-    left: 50%;
-    margin-top: 10px;
+  border-radius: 0.5em;
+  border: 1px solid black;
+  padding: 0.5rem;
+  width: 20%;
+  background-color: #c7dcf6;
+  position: absolute;
+  left: 50%;
+  margin-top: 10px;
+}
+#btn-jornada-manual{
+  position: relative;
+}
+@media screen and (max-width: 550px) {
+  #mensaje {
+    left: 20%;
+    width: 70%;
   }
-  #btn-jornada-manual{
+  .info:hover ~ .informacion {
     position: relative;
   }
-  @media screen and (max-width: 550px) {
-    #mensaje {
-      left: 20%;
-      width: 70%;
-    }
-    .info:hover ~ .informacion {
-      position: relative;
-    }
-  }
+}
 
 .esconder {
-    display: none;
+  display: none;
+}
+
+/* Implementaciones de botones dinámicos */
+.guardar {
+border: 1px solid black;
+border-radius: 0%;
+background: linear-gradient(90deg, rgba(0,138,2,1) 0%, rgba(13,111,31,1) 50%, rgba(39,79,47,1) 100%);
+background-size: 200% 100%; /* Duplicar el tamaño del fondo para animarlo */
+background-position: 0% 0%; /* Posición inicial del fondo */
+transition: background-position 1s ease, border-radius 1s ease; /* Transición suave */
+}
+
+.guardar:hover {
+border-radius: 1%;
+background-position: 100% 0%; /* Mover el gradiente */
+}
+
+.borrar {
+border: 1px solid black;
+border-radius: 0%;
+background: linear-gradient(90deg, rgba(255,4,4,1) 0%, rgba(203,40,40,1) 50%, rgba(111,49,49,1) 100%);
+background-size: 200% 100%; /* Duplicar el tamaño del fondo para animarlo */
+background-position: 0% 0%; /* Posición inicial del fondo */
+transition: background-position 1s ease, border-radius 1s ease; /* Transición suave */
+}
+
+.borrar:hover {
+border-radius: 1%;
+background-position: 100% 0%; /* Mover el gradiente */
 }
